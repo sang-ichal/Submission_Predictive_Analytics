@@ -1,6 +1,3 @@
-# Submission_Predictive_Analytics
-Submission_Predictive_Analytics by Faizal Riza
-
 # Laporan Proyek Machine Learning - Faizal Riza
 
 # Predictive Analysis
@@ -243,7 +240,7 @@ Algoritma Extreme Gradient Boosting merupakan salah satu algoritma boosting yang
 
 Pada pemodelan ini, XGBoost diimplementasikan menggunakan `XGBClassifier` dari library `xgboost` dengan memasukkan `X_train` dan `y_train` untuk melatih model, lalu menggunakan `X_test` dan `y_test` untuk menguji model dengan data testing yang tidak ada di data training. Parameter yang digunakan pada model ini adalah `max_depth` yaitu kedalaman maksimum setiap tree, `n_estimators` yaitu jumlah tree yang akan dibuat, `random_state` yaitu mengontrol seed acak yang diberikan pada setiap iterasi, `learning rate` yaitu mengatur langkah setiap iterasi ketika meminimumkan *loss function*, dan `n_jobs` yaitu mengatur jumlah CPU threads untuk menjalankan XGBoost. Pada proyek ini, parameter yang digunakan adalah `max_depth = `6`, `n_estimators = 125`, `random_state = 30`, `learning_rate = 0.01`, `n_jobs = -1`.
 
-### 3. Model Development dengan Support Vector Machine* (SVM)
+### 3. Model Development dengan Support Vector Machine (SVM)
 
 Algoritman ini sangat efektif untuk klasifikasi dan regresi. SVM bekerja dengan mencari hyperplane optimal yang memisahkan data dalam ruang fitur, serta mendukung kernel untuk menangani data non-linear. <br>
 
@@ -299,16 +296,23 @@ Berikut merupakan matriks confusion, akurasi, dan skor f1 dari seluruh model
 ![confusion-matrix](https://github.com/sang-ichal/Submission_Predictive_Analytics/blob/main/image/heatmap-confusion-matrix.png?raw=true)<br>
 
 #### 1. Model Development dengan Random Forest
-Dari gambar di atas, terdapat 8 data yang diprediksi salah pada Grade A dan 14 data yang diprediksi salah pada Grade F. Diperoleh skor F1 nya adalah 0.93 dengan akurasi tepatnya adalah 0.9269 atau ≈92.69%.
+![performance-random-forest](https://github.com/sang-ichal/Submission_Predictive_Analytics/blob/main/image/performance-random-forest.png?raw=true)
+Dari gambar di atas, model Random Forest menunjukkan **akurasi keseluruhan yang sangat tinggi, yaitu 93%**, menandakan kemampuannya yang kuat dalam memprediksi _grade_ siswa secara tepat.
+Secara spesifik, model ini **sangat unggul dalam mengidentifikasi siswa dengan _grade_ menengah hingga rendah (Grade C, D, dan terutama Grade F)**. Untuk Grade F, model mencapai _recall_ 98% dan _precision_ 94%, yang berarti hampir semua siswa yang gagal berhasil terdeteksi dan sebagian besar prediksi "gagal" adalah benar. Ini sangat berharga untuk intervensi dini.
+Namun, **kelemahan signifikan terletak pada prediksi untuk Grade A (_grade_ tertinggi)**. Dengan _recall_ hanya 62%, model seringkali **gagal mengidentifikasi siswa yang seharusnya masuk Grade A**, meskipun _precision_ (87%) cukup baik saat memprediksi Grade A. Hal ini kemungkinan besar disebabkan oleh **jumlah _sample_ Grade A yang sangat sedikit** (hanya 21), yang membuat model kesulitan belajar pola yang spesifik untuk kelas ini.
 
 #### 2. Model Development dengan XGBoots
-Dari gambar di atas, terdapat 5 data yang diprediksi salah pada Grade A dan 15 data yang diprediksi salah pada Grade F. Diperoleh skor F1 nya adalah 0.93 dengan akurasi tepatnya adalah 0.9332 atau ≈93.32%.
+![performance-xgboost](https://github.com/sang-ichal/Submission_Predictive_Analytics/blob/main/image/performance-xgboost.png?raw=true)
+Dari gambar di atas, model XGBoost Anda menunjukkan **akurasi keseluruhan yang sangat tinggi sebesar 93%**, setara dengan Random Forest dan jauh melampaui SVM. Keunggulan utama XGBoost adalah **keseimbangan kinerja di semua _grade_**. Model ini tidak hanya **sangat efektif dalam mendeteksi siswa yang berisiko gagal (Grade F)** dengan _recall_ 98%, tetapi juga menunjukkan **peningkatan signifikan dalam mengidentifikasi siswa berprestasi tinggi (Grade A)**, mencapai _recall_ 76%. ** XGBoost adalah model dengan kinerja terbaik** yang diuji sejauh ini. Model inimemberikan **prediksi yang akurat dan seimbang untuk semua kategori _grade_ siswa**.
 
 #### 3. Model Model Development dengan SVM
-Dari gambar di atas, terdapat 16 data yang diprediksi salah pada Grade A dan 28 data yang diprediksi salah pada Grade F. Diperoleh skor F1 nya adalah 0.77 dengan akurasi tepatnya adalah 0.7808 atau ≈78.08%.
+![performance-svm](https://github.com/sang-ichal/Submission_Predictive_Analytics/blob/main/image/performance-svm.png?raw=true)
+Dari gambar di atas, model SVM Anda mencapai **akurasi 78%**, yang secara signifikan **lebih rendah dibandingkan Random Forest (93%)** pada _dataset_ yang sama. Kinerja terbaik SVM terletak pada **prediksi siswa yang berisiko gagal (Grade F)**, dengan _recall_ 94% dan _precision_ 89%, menunjukkan efektivitas tinggi dalam mendeteksi kelompok ini. Namun, model ini **sangat buruk dalam mengidentifikasi siswa berprestasi tinggi (Grade A)**, hanya mampu mendeteksi 24% dari data(_recall_ 0.24). Kinerja pada _grade_ lainnya (B, C, D) berada di tingkat moderat. Meskipun SVM bagus untuk mendeteksi kegagalan kinerja siswa, **kinerja keseluruhannya jauh di bawah Random Forest**, terutama karena **kelemahannya dalam memprediksi Grade A**. Ini menyiratkan SVM **kurang cocok** untuk tujuan proyek Anda yang membutuhkan prediksi akurat untuk semua _grade_, kecuali jika fokus utamanya hanya pada deteksi dini siswa berisiko.
 
 #### 4. Model Model Development dengan Naive Bayes
-Dari gambar di atas, terdapat 19 data yang diprediksi salah pada Grade A dan 13 data yang diprediksi salah pada Grade F. Diperoleh skor F1 nya adalah 0.79 dengan akurasi tepatnya adalah 0.7933 atau ≈79.33%.
+![performance-naive-bayes](https://github.com/sang-ichal/Submission_Predictive_Analytics/blob/main/image/performance-naive-bayes.png?raw=true)
+Dari gambar di atas, model Naive Bayes Anda menunjukkan **akurasi 79%**, lebih rendah dari Random Forest dan XGBoost, tapi sedikit lebih baik dari SVM.
+Kekuatan model ini adalah kemampuannya yang **sangat baik dalam mendeteksi siswa yang berisiko gagal (Grade F)**, dengan _recall_ 90%. Namun model ini memiliki kekurangan karena  **tidak mampu mengidentifikasi siswa berprestasi tinggi (Grade A)**, di mana model hanya berhasil mendeteksi 10% dari grade A (_recall_ 0.10). Model Naive Bayes **kurang cocok** untuk **memprediksi Grade A**, meskipun cukup baik untukmemprediksi  Grade F. Model ini tidak memberikan prediksi yang seimbang dan komprehensif untuk semua _grade_.
 
 ### Hasil Evaluasi
 Dari seluruh akurasi yang diketahui dari keempat model, dibentuk bar plot untuk melihat perbandingan nilai akurasi model sebagai berikut. 
@@ -334,4 +338,3 @@ Berdasarkan hasil yang diperoleh setelah melakukan proses EDA dan pengujiaan mod
 ## Referensi
 1. Nurrohman, Aji. "Klasifikasi Performa Akademik Siswa Menggunakan Metode Decision Tree dan Naive Bayes", Vol. 13 No.1 (2023) 22-31, ISSN 2503-3247. SINTA Peringkat 4, diakses pada 28 November 2024.
 2. Dicoding. Diakses pada 6 Juli 2024 dari https://www.dicoding.com/academies/319-machine-learning-terapan
-
